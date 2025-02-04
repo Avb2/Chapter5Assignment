@@ -46,4 +46,29 @@ public class ContactDataSource {
 
         return didSucceed;
     }
+
+
+    public boolean updateContact(Contact c) {
+        boolean didSuceed = false;
+
+        try {
+            Long rowId = (long) c.getContactID();
+            ContentValues updateValues = new ContentValues();
+
+            updateValues.put("contactname", c.getContactName());
+            updateValues.put("streetaddress", c.getStreetAddress());
+            updateValues.put("city", c.getCity());
+            updateValues.put("state", c.getState());
+            updateValues.put("zipcode", c.getZipCode());
+            updateValues.put("phonenumber", c.getPhoneNumber());
+            updateValues.put("cellnumber", c.getCellNumber());
+            updateValues.put("email", c.geteMail());
+            updateValues.put("birthday", String.valueOf(c.getBirthday().getTimeInMillis()));
+
+            didSuceed = database.update("contact", updateValues, "id="+rowId, null) > 0;
+        } catch (Exception e) {
+
+        }
+        return didSuceed;
+    }
 }

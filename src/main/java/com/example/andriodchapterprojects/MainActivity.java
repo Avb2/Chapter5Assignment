@@ -299,4 +299,36 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
     }
+
+    private void initSaveButton() {
+        Button saveButton = findViewById(R.id.savebutton);
+
+        saveButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                boolean wasSuccessful;
+                ContactDataSource ds = new ContactDataSource(MainActivity.this);
+
+                try {
+                    ds.open();
+
+                    if (currentContact.getContactID() == -1) {
+                        wasSuccessful = ds.insertContact(currentContact);
+                    } else {
+                        wasSuccessful = ds.updateContact(currentContact);
+                    }
+                    ds.close();
+                } catch (Exception e) {
+                    wasSuccessful = false;
+                }
+                if (wasSuccessful) {
+                    ToggleButton editToggle = findViewById(R.id.toggleButton);
+                    editToggle.toggle();
+                    setForEditing(false);
+                }
+            }
+        });
+    }
+
 }
