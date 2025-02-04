@@ -40,7 +40,13 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         initChangeDateButton();
 
         changeScreen();
+
+        currentContact = new Contact();
     }
+
+
+    private Contact currentContact;
+
     private void initListButton(){
         ImageButton ibList=findViewById(R.id.imageButtonList);
         ibList.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +132,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         // Set the selected date in your TextView
         TextView birthDay = findViewById(R.id.textBirthday);
         birthDay.setText(DateFormat.format("MM/dd/yyyy", selectedTime));
+
+        currentContact.setBirthday(selectedTime);
     }
 
 
