@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         initToggleButton();
         setForEditing(false);
         initChangeDateButton();
+        initSaveButton();
+        initTextChangedEvents();
 
         changeScreen();
 
@@ -116,8 +119,18 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         editEmail.setEnabled(enabled);
         buttonchange.setEnabled(enabled);
         buttonsave.setEnabled(enabled);
-        if(enabled){
+        if (enabled) {
+
             editName.requestFocus();
+
+        }
+
+        else {
+
+            ScrollView s = findViewById(R.id.scrollView);
+
+            s.fullScroll(ScrollView.FOCUS_UP);
+
         }
 
     }
@@ -318,6 +331,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
                     if (currentContact.getContactID() == -1) {
                         wasSuccessful = ds.insertContact(currentContact);
+                        if (wasSuccessful) {
+
+                            int newId = ds.getLastContactId();
+
+                            currentContact.setContactID(newId);
+                        }
                     } else {
                         wasSuccessful = ds.updateContact(currentContact);
                     }

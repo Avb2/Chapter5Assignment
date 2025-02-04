@@ -25,6 +25,9 @@ public class SettingsActivity extends AppCompatActivity {
         initListButton();
         initSettingsButton();
         initMapButton();
+        initSortByClick();
+        initSortOrderClick();
+        initSettings();
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
