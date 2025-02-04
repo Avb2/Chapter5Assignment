@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,6 +91,58 @@ public class SettingsActivity extends AppCompatActivity {
         } else {
             rbDescending.setChecked(true);
         }
+    }
+
+
+    private void initSortByClick() {
+        RadioGroup rgSortBy = findViewById(R.id.radioGroupSortBy);
+        rgSortBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i){
+                RadioButton rbName = findViewById(R.id.radioName);
+                RadioButton rbCity = findViewById(R.id.radioCity);
+
+                if (rbName.isChecked()){
+                    getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("sortfield", "contactname").apply();
+                } else if (rbCity.isChecked()) {
+                    getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("sortfield", "city")
+                            .apply();
+                } else {
+                    getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("sortfield", "birthday")
+                            .apply();
+                }
+            }
+        });
+
+    }
+
+
+    private void initSortOrderClick() {
+        RadioGroup rgSortBy = findViewById(R.id.radioGroupSortOrder);
+        rgSortBy.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                RadioButton rbAscending = findViewById(R.id.ascendingRadio);
+
+                if (rbAscending.isChecked()){
+                    getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("sortorder", "ASC")
+                            .apply();
+                } else {
+                    getSharedPreferences("MyContactListPreferences", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("sortorder", "DESC")
+                            .apply();
+                }
+            }
+        });
     }
 }
 

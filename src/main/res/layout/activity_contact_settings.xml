@@ -84,10 +84,11 @@
         tools:layout_editor_absoluteY="212dp" />
 
     <RadioGroup
+        android:id="@+id/radioGroupSortOrder"
         android:layout_width="128dp"
         android:layout_height="86dp"
         tools:layout_editor_absoluteX="78dp"
-        tools:layout_editor_absoluteY="248dp" >
+        tools:layout_editor_absoluteY="248dp">
 
         <RadioButton
             android:id="@+id/ascendingRadio"
