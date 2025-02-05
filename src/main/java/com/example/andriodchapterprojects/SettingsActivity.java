@@ -25,6 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
         initListButton();
         initSettingsButton();
         initMapButton();
+
         initSortByClick();
         initSortOrderClick();
         initSettings();
@@ -67,9 +68,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void initSettings() {
         // Get shared prefs
-        String sortBy = getSharedPreferences("MyContact List Preferences",
+        String sortBy = getSharedPreferences("MyContactListPreferences",
                 Context.MODE_PRIVATE).getString("sortfield", "contactname");
-        String sortOrder = getSharedPreferences("MyContactList Preferences"
+        String sortOrder = getSharedPreferences("MyContactListPreferences"
                 , Context.MODE_PRIVATE).getString("sortorder", "ASC");
 
         // Get Radio Buttons

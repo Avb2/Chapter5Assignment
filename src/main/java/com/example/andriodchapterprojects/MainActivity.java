@@ -22,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.FragmentManager;
 
 import java.util.Calendar;
 
@@ -47,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         initSaveButton();
         initTextChangedEvents();
 
-        changeScreen();
 
         currentContact = new Contact();
     }
@@ -89,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         });
     }
     private void initToggleButton(){
-        final ToggleButton edit=(ToggleButton)findViewById(R.id.toggleButton);
+        final ToggleButton edit=(ToggleButton)findViewById(R.id.toggleButtonEdit);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,14 +154,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
 
-    private void changeScreen() {
-        Button b = findViewById(R.id.savebutton);
-        b.setOnClickListener(l -> {
-            Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-        });
-    }
+
 
     private void initTextChangedEvents() {
         final EditText etContactName = findViewById(R.id.editName);
@@ -345,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     wasSuccessful = false;
                 }
                 if (wasSuccessful) {
-                    ToggleButton editToggle = findViewById(R.id.toggleButton);
+                    ToggleButton editToggle = findViewById(R.id.toggleButtonEdit);
                     editToggle.toggle();
                     setForEditing(false);
                 }
