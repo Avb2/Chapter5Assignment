@@ -3,6 +3,7 @@ package com.example.andriodchapterprojects;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
@@ -194,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         });
 
         final EditText etCity = findViewById(R.id.editCity);
-        etContactName.addTextChangedListener(new TextWatcher() {
+        etCity.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -212,7 +213,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         });
 
         final EditText etZipcode = findViewById(R.id.editZipcode);
-        etContactName.addTextChangedListener(new TextWatcher() {
+        etZipcode.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -230,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         });
 
         final EditText etState = findViewById(R.id.editState);
-        etContactName.addTextChangedListener(new TextWatcher() {
+        etState.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -249,7 +250,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
         final EditText etHomePhone = findViewById(R.id.editHome);
-        etContactName.addTextChangedListener(new PhoneNumberFormattingTextWatcher() {
+        etHomePhone.addTextChangedListener(new PhoneNumberFormattingTextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -267,7 +268,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         });
 
         final EditText etCell = findViewById(R.id.editCell);
-        etContactName.addTextChangedListener(new PhoneNumberFormattingTextWatcher() {
+        etCell.addTextChangedListener(new PhoneNumberFormattingTextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -286,7 +287,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
 
         final EditText etEmail = findViewById(R.id.editEmail);
-        etContactName.addTextChangedListener(new TextWatcher() {
+        etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -306,40 +307,34 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
 
     }
 
-    private void initSaveButton() {
-        Button saveButton = findViewById(R.id.savebutton);
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-
+    private void initSaveButton(){
+        Button saveBtn=findViewById(R.id.savebutton);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                boolean wasSuccessful;
-                hideKeyboard();
-                ContactDataSource ds = new ContactDataSource(MainActivity.this);
-
-                try {
+            public void onClick(View v) {
+                boolean wasSuccess;
+                ContactDataSource ds=new ContactDataSource(MainActivity.this);
+                try{
                     ds.open();
-
-                    if (currentContact.getContactID() == -1) {
-                        wasSuccessful = ds.insertContact(currentContact);
-                        if (wasSuccessful) {
-
-                            int newId = ds.getLastContactId();
-
-                            currentContact.setContactID(newId);
-                        }
-                    } else {
-                        wasSuccessful = ds.updateContact(currentContact);
+                    if(currentContact.getContactID()==-1){
+                        wasSuccess = ds.insertContact(currentContact);
+                    }
+                    else{
+                        //these methods return a boolean
+                        wasSuccess=ds.updateContact(currentContact);
                     }
                     ds.close();
-                } catch (Exception e) {
-                    wasSuccessful = false;
+
+                } catch (SQLException e) {
+                    wasSuccess=false;
+
                 }
-                if (wasSuccessful) {
-                    ToggleButton editToggle = findViewById(R.id.toggleButtonEdit);
-                    editToggle.toggle();
+                if(wasSuccess){
+                    ToggleButton edit=findViewById(R.id.toggleButtonEdit);
+                    edit.toggle();
                     setForEditing(false);
                 }
+
             }
         });
     }
