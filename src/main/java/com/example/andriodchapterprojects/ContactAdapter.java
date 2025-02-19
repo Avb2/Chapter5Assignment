@@ -1,10 +1,15 @@
 package com.example.andriodchapterprojects;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,10 +19,14 @@ public class ContactAdapter extends RecyclerView.Adapter {
 
     private ArrayList<Contact> contactData;
     private View.OnClickListener mOnClickListener;
+    private boolean isDeleting;
+    private Context parentContext;
 
-    public ContactAdapter(ArrayList<Contact> arrayList, View.OnClickListener onClickListener) {
+
+    public ContactAdapter(ArrayList<Contact> arrayList, View.OnClickListener onClickListener, Context context) {
         contactData = arrayList;
         mOnClickListener = onClickListener;
+        parentContext = context;
     }
 
     public class ContactViewHolder extends RecyclerView.ViewHolder {
@@ -56,14 +65,52 @@ public class ContactAdapter extends RecyclerView.Adapter {
 
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ContactViewHolder cvh = (ContactViewHolder) holder;
         cvh.getContactTextView().setText(contactData.get(position).getContactName());
         cvh.getPhoneTextView().setText(contactData.get(position).getPhoneNumber());
+
+        if (isDeleting) {
+            cvh.getDeleteButton().setVisibility(View.VISIBLE);
+            cvh.getDeleteButton().setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    deleteItem(position);
+                }
+            });
+        } else {
+            cvh.getDeleteButton().setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
     public int getItemCount() {
         return contactData.size();
     }
+
+    public void setDelete(Boolean b){
+        isDeleting = b;
+    }
+
+    private void deleteItem(int position) {
+        Contact contact = contactData.get(position);
+        ContactDataSource ds = new ContactDataSource(parentContext);
+
+        try {
+            ds.open();
+            boolean didDelete = ds.deleteContact(contact.getContactID());
+            ds.close();
+            if (didDelete) {
+                contactData.remove(position);
+                notifyDataSetChanged();
+            } else {
+                Toast.makeText(parentContext, "Delete Failed", Toast.LENGTH_LONG).show();
+            }
+        } catch (Exception e) {
+            Toast.makeText(parentContext, "Delete Failed!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
+
 }

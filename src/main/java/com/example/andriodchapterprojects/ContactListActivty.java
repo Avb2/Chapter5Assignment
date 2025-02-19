@@ -4,7 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -59,8 +61,11 @@ public class ContactListActivty extends AppCompatActivity {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             contactList.setLayoutManager(layoutManager);
 
-            ContactAdapter contactAdapter = new ContactAdapter(contacts, onItemClickListener);
+            ContactAdapter contactAdapter = new ContactAdapter(contacts, onItemClickListener, this);
             contactList.setAdapter(contactAdapter);
+
+
+            initDeleteSwitch(contactAdapter);
 
         } catch (Exception e) {
             Toast.makeText(this, "Error retrieving contacts", Toast.LENGTH_LONG).show();
@@ -78,6 +83,25 @@ public class ContactListActivty extends AppCompatActivity {
             }
         });
     }
+
+
+    private void initDeleteSwitch(ContactAdapter contactAdapter) {
+        Switch s = findViewById(R.id.switchDelete);
+        s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged (CompoundButton compoundButton, boolean b) {
+                Boolean status = compoundButton.isChecked();
+                contactAdapter.setDelete(status);
+                contactAdapter.notifyDataSetChanged();
+            }
+        });
+    }
+
+
+
+
+
+
 
     /// Nav buttons
     private void initMapButton(){
