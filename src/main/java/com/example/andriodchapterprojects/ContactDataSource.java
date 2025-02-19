@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,11 +26,12 @@ public class ContactDataSource {
         dbHelper.close();
     }
 
-    public ArrayList<Contact> getContactName() {
+    public ArrayList<Contact> getContacts(String sortField, String sortOrder) {
         ArrayList<Contact> contacts = new ArrayList<Contact>();
 
         try {
-            String query = "SELECT * FROM contact";
+            String query = "SELECT * FROM contact ORDER BY " + sortField + " " + sortOrder;
+
             Cursor cursor = database.rawQuery(query, null);
 
             Contact newContact;
