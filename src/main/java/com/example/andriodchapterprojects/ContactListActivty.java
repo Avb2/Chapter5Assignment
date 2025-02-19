@@ -66,15 +66,22 @@ public class ContactListActivty extends AppCompatActivity {
             contacts = ds.getContacts(sortBy, sortOrder);
             ds.close();
 
-            RecyclerView contactList = findViewById(R.id.rvContacts);
-            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-            contactList.setLayoutManager(layoutManager);
+            if (contacts.size() > 0) {
 
-            ContactAdapter contactAdapter = new ContactAdapter(contacts, onItemClickListener, this);
-            contactList.setAdapter(contactAdapter);
+                RecyclerView contactList = findViewById(R.id.rvContacts);
+                RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+                contactList.setLayoutManager(layoutManager);
+
+                ContactAdapter contactAdapter = new ContactAdapter(contacts, onItemClickListener, this);
+                contactList.setAdapter(contactAdapter);
 
 
-            initDeleteSwitch(contactAdapter);
+                initDeleteSwitch(contactAdapter);
+
+            } else {
+                Intent intent = new Intent(ContactListActivty.this, MainActivity.class);
+                startActivity(intent);
+            }
 
         } catch (Exception e) {
             Toast.makeText(this, "Error retrieving contacts", Toast.LENGTH_LONG).show();
