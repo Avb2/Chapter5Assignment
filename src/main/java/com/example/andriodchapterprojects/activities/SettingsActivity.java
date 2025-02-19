@@ -1,4 +1,4 @@
-package com.example.andriodchapterprojects;
+package com.example.andriodchapterprojects.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.andriodchapterprojects.R;
 
 public class SettingsActivity extends AppCompatActivity {
 

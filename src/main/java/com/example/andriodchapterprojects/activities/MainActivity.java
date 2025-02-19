@@ -1,4 +1,4 @@
-package com.example.andriodchapterprojects;
+package com.example.andriodchapterprojects.activities;
 
 
 import android.content.Context;
@@ -24,6 +24,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.andriodchapterprojects.DatePickerDialog;
+import com.example.andriodchapterprojects.R;
+import com.example.andriodchapterprojects.db.ContactDataSource;
+import com.example.andriodchapterprojects.models.Contact;
 
 import java.util.Calendar;
 

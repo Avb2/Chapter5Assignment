@@ -1,4 +1,4 @@
-package com.example.andriodchapterprojects;
+package com.example.andriodchapterprojects.models;
 
 import java.util.Calendar;
 

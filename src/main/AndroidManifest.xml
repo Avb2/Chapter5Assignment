@@ -13,16 +13,16 @@
         android:theme="@style/Theme.AndriodChapterProjects"
         tools:targetApi="31">
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".MapActivity"
+            android:name=".activities.MapActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ContactListActivty"
+            android:name=".activities.ContactListActivty"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

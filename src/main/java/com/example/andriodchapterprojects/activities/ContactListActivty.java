@@ -1,4 +1,4 @@
-package com.example.andriodchapterprojects;
+package com.example.andriodchapterprojects.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +17,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.andriodchapterprojects.ContactAdapter;
+import com.example.andriodchapterprojects.R;
+import com.example.andriodchapterprojects.db.ContactDataSource;
+import com.example.andriodchapterprojects.models.Contact;
 
 import java.util.ArrayList;
 

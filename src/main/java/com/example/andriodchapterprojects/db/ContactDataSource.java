@@ -1,10 +1,12 @@
-package com.example.andriodchapterprojects;
+package com.example.andriodchapterprojects.db;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+
+import com.example.andriodchapterprojects.models.Contact;
 
 import java.util.ArrayList;
 import java.util.Calendar;
