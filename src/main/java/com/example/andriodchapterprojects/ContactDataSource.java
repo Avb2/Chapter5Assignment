@@ -88,6 +88,15 @@ public class ContactDataSource {
         return contact;
     }
 
+    public boolean deleteContact(int contactId) {
+        boolean didDelete = false;
+        try {
+            didDelete = database.delete("contact", String.format("_id=%d", contactId), null) > 0;
+        } catch (Exception e) {
+        }
+        return didDelete;
+    }
+
     public boolean insertContact(Contact c) {
         boolean didSucceed = false;
 

@@ -3,6 +3,7 @@ package com.example.andriodchapterprojects;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -25,7 +26,7 @@ public class ContactListActivty extends AppCompatActivity {
             int position = viewHolder.getAdapterPosition();
             int contactId = contacts.get(position).getContactID();
             Intent intent = new Intent(ContactListActivty.this, MainActivity.class);
-            intent.putExtra("contactID", contactId);
+            intent.putExtra("contactid", contactId);
             startActivity(intent);
         }
     };
@@ -38,6 +39,7 @@ public class ContactListActivty extends AppCompatActivity {
 
         initMapButton();
         initSettingsButton();
+        initAddContactButton();
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.mainConstraint), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -57,7 +59,7 @@ public class ContactListActivty extends AppCompatActivity {
             RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
             contactList.setLayoutManager(layoutManager);
 
-            ContactAdapter contactAdapter = new ContactAdapter(contacts);
+            ContactAdapter contactAdapter = new ContactAdapter(contacts, onItemClickListener);
             contactList.setAdapter(contactAdapter);
 
         } catch (Exception e) {
@@ -66,7 +68,18 @@ public class ContactListActivty extends AppCompatActivity {
     }
 
 
+    private void initAddContactButton(){
+        Button newContact = findViewById(R.id.buttonAddContact);
+        newContact.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ContactListActivty.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
 
+    /// Nav buttons
     private void initMapButton(){
         ImageButton ibList=findViewById(R.id.imageButtonMap);
         ibList.setOnClickListener(new View.OnClickListener() {

@@ -15,6 +15,11 @@ public class ContactAdapter extends RecyclerView.Adapter {
     private ArrayList<Contact> contactData;
     private View.OnClickListener mOnClickListener;
 
+    public ContactAdapter(ArrayList<Contact> arrayList, View.OnClickListener onClickListener) {
+        contactData = arrayList;
+        mOnClickListener = onClickListener;
+    }
+
     public class ContactViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewContact;
         public TextView textPhone;
@@ -40,9 +45,7 @@ public class ContactAdapter extends RecyclerView.Adapter {
         }
     }
 
-    public ContactAdapter(ArrayList<Contact> arrayList) {
-        contactData = arrayList;
-    }
+
 
     @NonNull
     @Override
