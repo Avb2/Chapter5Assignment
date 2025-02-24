@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.andriodchapterprojects.db.ContactDataSource;
 import com.example.andriodchapterprojects.models.Contact;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class ContactAdapter extends RecyclerView.Adapter {
@@ -31,9 +33,12 @@ public class ContactAdapter extends RecyclerView.Adapter {
         parentContext = context;
     }
 
+    /// List Item
     public class ContactViewHolder extends RecyclerView.ViewHolder {
         public TextView textViewContact;
         public TextView textPhone;
+
+        public TextView email;
         public Button deleteButton;
 
         public ContactViewHolder(@NonNull View itemView) {
@@ -41,8 +46,13 @@ public class ContactAdapter extends RecyclerView.Adapter {
             textViewContact = itemView.findViewById(R.id.textContactName);
             textPhone = itemView.findViewById(R.id.textPhoneNumber);
             deleteButton = itemView.findViewById(R.id.buttonDeleteContact);
+            email = itemView.findViewById(R.id.emailShow);
             itemView.setTag(this);
             itemView.setOnClickListener(mOnClickListener);
+        }
+
+        public TextView getEmail(){
+            return email;
         }
 
         public TextView getPhoneTextView() {
@@ -71,6 +81,7 @@ public class ContactAdapter extends RecyclerView.Adapter {
         ContactViewHolder cvh = (ContactViewHolder) holder;
         cvh.getContactTextView().setText(contactData.get(position).getContactName());
         cvh.getPhoneTextView().setText(contactData.get(position).getPhoneNumber());
+        cvh.getEmail().setText(contactData.get(position).geteMail());
 
         if (isDeleting) {
             cvh.getDeleteButton().setVisibility(View.VISIBLE);
